@@ -42,7 +42,7 @@ def get_profile(soup):
     get_profile_["profile_pic_link"] = soup.find_all('div', { "class":"profile-picture"})[0].find('a').get('href')
     get_profile_["profile_title"] =  get_title_info(soup)
     return  soup.find_all('div', { "class":"profile-picture"})[0].find('a').get('href')
-application = Flask(__name__)
+
 
 def experience(soup):
     ## EXPERIENCE
@@ -88,8 +88,12 @@ def education(soup):
 
     return  education_
 
+application = Flask(__name__)
 @application.route("/")
-def hello():
+def start_linkedIN():
+    u = request.args.get('url', '')
+    filename = request.args.get('filename','')
+    url = "https://www.linkedin.com/in/" + u
     return "Hello World!"
 
 if __name__ == "__main__":

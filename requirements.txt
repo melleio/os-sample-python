@@ -1,2 +1,8 @@
 gunicorn
-Flask
+Flask==0.10.1
+beautifulsoup4
+requests==2.14.2
+setuptools==36.2.0
+html5lib
+lxml
+

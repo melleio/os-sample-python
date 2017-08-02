@@ -87,6 +87,32 @@ def education(soup):
         education_.append(edu_)
 
     return  education_
+def LinkedIN(url, filename):
+    read_folder= "html_profiles/"
+    store_folder = "json_profiles/"
+    input_filename = read_folder+filename+".html"
+    output_filename = store_folder+filename+".json"
+    '''
+    This script will run to generate the profile for the provided url
+    '''
+    if os.path.exists(os.path.join(os.path.dirname(__file__),input_filename))==True:
+        # print input_filename+' exists'
+        soup = read_zipfile(input_filename)
+    else:
+        soup = save_htmlfile(url, input_filename)
+        # print read_folder+filename+".html", "created!"
+
+    #save_htmlfile(url, input_filename)
+    
+    file = open(os.path.join(os.path.dirname(__file__),output_filename), "w")
+    data = {}
+    data["profile "] = get_profile(soup)
+    data["experience"] = experience(soup)
+    data["skills"] = skills(soup)
+    data["education"] = education(soup)
+    # print input_filename+" proccessed correctly"
+    json.dump(output_filename, file)
+    return json.dumps(data)
 
 application = Flask(__name__)
 @application.route("/")
@@ -94,7 +120,7 @@ def start_linkedIN():
     u = request.args.get('url', '')
     filename = request.args.get('filename','')
     url = "https://www.linkedin.com/in/" + u
-    return "Hello World!"
+    return LinkedIN(url,filename)
 
 if __name__ == "__main__":
     application.run()

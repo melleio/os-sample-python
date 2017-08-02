@@ -2,7 +2,6 @@ import sys
 from time import sleep
 import re
 import requests
-from exceptions import ValueError
 import csv, os, json
 import html5lib
 from lxml import html
